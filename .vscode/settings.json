@@ -1,0 +1,9 @@
+{
+    "folder-customization.folders": [
+        {
+            "path": "my-landing\\src\\components\\sections\\",
+            "badge": "🤖",
+            "color": "foldercustomization.AnsiColor21"
+        }
+    ]
+}

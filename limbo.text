@@ -1,0 +1,89 @@
+DOCUMENTO COMPLETO: “URBAN RITUAL” — Juego de Cartas Metalero 2D
+Versión 1.0 • Diseñado para Godot + Integración con Música y Web
+
+🔷 1. Visión General
+Nombre provisional: Urban Ritual (alternativas: Ashen Grid, Soulforge, Infernal City)
+Género: Juego de cartas estratégico 2D, por turnos, con destrucción de entorno.
+Estética: Metal progresivo oscuro + ciudad post-industrial colapsada.
+Público objetivo: Fans de Yu-Gi-Oh!, Slay the Spire, Magic: The Gathering, y jugadores indie que valoran narrativa, arte y sonido integrado.
+Propuesta única:
+
+No se juega con “vida”, sino con integridad de la ciudad.
+Las fuentes energéticas (Alma/Fuego) definen tu estilo de juego y sinergizan con tu música original.
+Tu voz y producción son parte del gameplay (SFX, OST dinámico).
+🔷 2. Tablero y Zonas
+🗺️ Diseño del tablero (simétrico, 2 jugadores)
+[ Fuente de ALMA ] — [ ZONA DEFENSA (2 casillas) ] — [ CIUDAD CENTRAL (5 sectores) ] — [ ZONA ATAQUE (2 casillas) ] — [ Fuente de FUEGO ]
+       🜂                                                                                           🔥
+
+📌 Zona de Fuente de ALMA (🜂)
+Función: Genera +1 Esencia de Vida por turno.
+Estética: Luz tenue, partículas doradas, sonido de coros suaves.
+Mecánica: Solo cartas que usen Esencia de Vida pueden aprovechar sinergias aquí.
+📌 Zona de Fuente de FUEGO (🔥)
+Función: Genera +1 Esencia de Caos por turno.
+Estética: Llamas distorsionadas, humo negro, sonido de distorsión y batería.
+Mecánica: Solo cartas que usen Esencia de Caos reciben bonos aquí.
+📌 Zona DEFENSA (2 casillas por jugador)
+Quién puede estar:
+Personajes de tipo Defensor o Soporte.
+Cartas de magia de campo defensivas.
+Reglas:
+No reciben daño directo de ataques (solo por efectos de magia específicos).
+Pueden “proteger” sectores aliados adyacentes (+1 resistencia).
+📌 Zona ATAQUE (2 casillas por jugador)
+Quién puede estar:
+Personajes de tipo Asesino o Destructor.
+Cartas de magia de campo ofensivas.
+Reglas:
+Solo desde aquí se puede atacar sectores enemigos.
+Pueden atacar a personajes enemigos en ATAQUE (duelo directo).
+📌 Ciudad Central (5 sectores neutros)
+Nombre de sectores: Torre del Reloj, Puente del Olvido, Fábrica de Cenizas, Plaza del Vacío, Biblioteca Quemada.
+Mecánica:
+Cada sector tiene 3 puntos de integridad.
+Al llegar a 0, se vuelve ruina (sprite cambia, ya no puede ser reparado).
+El objetivo del juego es destruir los 5 sectores del oponente.
+Diseño visual: Sprites modulares (edificios que se derrumban en etapas).
+🔷 3. Sistema de Recursos y Turnos
+🔁 Flujo de turno (dura ~45–60 segundos)
+Generación
+Cada fuente otorga +1 recurso:
+🜂 Esencia de Vida
+🔥 Esencia de Caos
+Máximo acumulable: 5 de cada uno.
+Robo
+Robás 1 carta de tu mazo (máx. 7 en mano).
+Fase principal
+Puedes hacer hasta 2 acciones:
+Invocar un personaje (pago de recursos).
+Jugar una carta de magia.
+Mover 1 personaje entre zonas (solo DEFENSA ↔ ATAQUE, no a CIUDAD).
+Activar efecto de carta de campo.
+Combate
+Los personajes en ATAQUE pueden:
+Atacar un sector enemigo → daño = ataque del personaje.
+Atacar un personaje enemigo en ATAQUE → duelo (vida vs. vida).
+Los personajes en DEFENSA pueden usar efectos defensivos (ej: bloquear, curar).
+Final del turno
+Se resuelven efectos de fin de turno (ej: “Niebla de Cenizas” mantiene efecto).
+La fuente activa define la música de fondo (Alma: limpio/melódico / Fuego: gutural/agresivo).
+🔷 4. Cartas de PERSONAJE
+🧾 Estructura técnica (GDScript / JSON)
+{
+  "id": "char_023",
+  "nombre": "Forjador de Cenizas",
+  "tipo": "Defensor",
+  "descripcion": "Forja escudos con los restos de la ciudad.",
+  "costo_alma": 2,
+  "costo_fuego": 0,
+  "vida": 4,
+  "ataque": 1,
+  "rareza": "Rara",
+  "efecto_al_invocar": "Repara 1 punto de integridad de un sector aliado.",
+  "efecto_al_morir": "Agrega 'Escudo de Acero' a tu mano.",
+  "sprite": "res://assets/personajes/forjador.png",
+  "animacion_invocacion": "res://animations/invocacion_forjador.tscn",
+  "sonido_invocacion": "res://sfx/invocacion_metal_limpio.ogg",
+  "sonido_ataque": "res://sfx/golpe_metal.ogg"
+}
