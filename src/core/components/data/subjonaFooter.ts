@@ -10,6 +10,7 @@ export const subjonaSocialLinks: SocialLink[] = [
   {
     name: 'WhatsApp',
     url: 'https://wa.me/593999999999?text=¡Hola!%20Estoy%20interesado%20en%20tus%20servicios.',
+     icon: 'whatsapp', // <-- Agrega esto
   },
   // {
   //   name: 'Instagram',
