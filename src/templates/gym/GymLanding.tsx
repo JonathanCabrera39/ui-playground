@@ -102,7 +102,7 @@ export default function GymLanding() {
                   </label>
                   <select
                     value={frecuencia}
-                    onChange={(e) => setFrecuencia(e.target.value as any)}
+                    onChange={(e) => setFrecuencia(e.target.value as "3" | "5")}
                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white"
                   >
                     <option value="3">3 días/semana</option>

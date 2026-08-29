@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 
+type YouTubeSearchItem = {
+  id?: { videoId?: string };
+  snippet?: { title?: string };
+};
+
 // ✅ Hook para cargar videos (autocontenida, sin dependencias externas)
 export const useYouTubeVideos = (maxResults = 4) => {
   const [videos, setVideos] = useState<Array<{ id: string; title: string }>>([]);
@@ -28,15 +33,15 @@ export const useYouTubeVideos = (maxResults = 4) => {
       try {
         const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=${maxResults}&type=video`;
         const res = await fetch(url);
-        const data = await res.json();
+        const data : { items?: YouTubeSearchItem[] } =await res.json();
         const items = data.items || [];
         
-        setVideos(items.map((item: any) => ({
-          id: item.id.videoId,
-          title: item.snippet.title
+        setVideos(items.map((item: YouTubeSearchItem) => ({
+          id: item.id?.videoId ?? '',
+          title: item.snippet?.title ?? 'Untitled'
         })));
-      } catch (e) {
-        console.warn('YouTube API no disponible. Usando demos.');
+      } catch (err) {
+        console.warn('YouTube API no disponible. Usando demos.',err);
         setVideos([
           { id: 'dQw4w9WgXcQ', title: 'Demo: Beat épico' },
           { id: 'LACbE319lWI', title: 'Live Session – Guitarra' }
