@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react';
 
-type YouTubeSearchItem = {
-  id?: { videoId?: string };
-  snippet?: { title?: string };
+// ✅ Tipo correcto para la respuesta de playlistItems
+type YouTubePlaylistItem = {
+  id: string; // ID del item en la playlist
+  snippet?: {
+    title?: string;
+    resourceId?: {
+      videoId?: string; // ✅ Aquí está el ID real del video
+    };
+  };
 };
 
-// ✅ Hook para cargar videos (autocontenida, sin dependencias externas)
 export const useYouTubeVideos = (maxResults = 4) => {
   const [videos, setVideos] = useState<Array<{ id: string; title: string }>>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Usa variables de entorno si están, o fallback para testing
-    const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || 'AIzaSyBx...'; // ← reemplazá por tu clave en .env.local
-    const CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID || 'UCx...'; // ← tu channel ID
+    const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || 'AIzaSyBx...';
+    const CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID || 'UCx...';
 
+    // Fallback elegante si no hay variables de entorno (Modo Dev)
     if (API_KEY === 'AIzaSyBx...' || CHANNEL_ID === 'UCx...') {
-      // Modo dev: videos de ejemplo (evita errores en consola)
       setTimeout(() => {
         setVideos([
           { id: 'dQw4w9WgXcQ', title: 'Demo: Beat épico' },
@@ -31,17 +35,21 @@ export const useYouTubeVideos = (maxResults = 4) => {
 
     const fetchVideos = async () => {
       try {
-        const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=${maxResults}&type=video`;
+        // UU + los últimos 22 caracteres del Channel ID (UC...)
+        const uploadsPlaylistId = `UU${CHANNEL_ID.slice(2)}`;
+        const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=${maxResults}&key=${API_KEY}`;
+    
         const res = await fetch(url);
-        const data : { items?: YouTubeSearchItem[] } =await res.json();
+        const data: { items?: YouTubePlaylistItem[] } = await res.json();
         const items = data.items || [];
         
-        setVideos(items.map((item: YouTubeSearchItem) => ({
-          id: item.id?.videoId ?? '',
+        // ✅ Mapeo corregido para extraer el videoId de resourceId
+        setVideos(items.map((item: YouTubePlaylistItem) => ({
+          id: item.snippet?.resourceId?.videoId ?? '',
           title: item.snippet?.title ?? 'Untitled'
         })));
       } catch (err) {
-        console.warn('YouTube API no disponible. Usando demos.',err);
+        console.warn('YouTube API no disponible. Usando demos.', err);
         setVideos([
           { id: 'dQw4w9WgXcQ', title: 'Demo: Beat épico' },
           { id: 'LACbE319lWI', title: 'Live Session – Guitarra' }
