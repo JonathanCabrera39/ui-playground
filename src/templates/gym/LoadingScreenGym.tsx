@@ -1,7 +1,7 @@
 // src/components/LoadingScreenGym.tsx
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import icon from "../../image/icon-coach.png";
+import icon from "/image/icon-coach.png";
 
 export default function LoadingScreenGym() {
   const [isVisible, setIsVisible] = useState(true);

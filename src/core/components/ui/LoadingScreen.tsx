@@ -1,6 +1,6 @@
 // src/components/LoadingScreen.tsx
 import { useEffect, useState } from "react";
-import logobeat from "../../../image/icon-beat.png";
+import logobeat from "/image/icon-beat.png";
 
 export default function LoadingScreen() {
   const [isVisible, setIsVisible] = useState(true);

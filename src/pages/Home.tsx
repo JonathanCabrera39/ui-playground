@@ -1,6 +1,6 @@
 import Footer from "../core/components/layout/Footer";
 import Navbar from "../core/components/layout/Navbar";
-import logo from "../image/subjona.png";
+import logo from "/image/subjona.png";
 export default function Home() {
   const templates = [
     {
@@ -9,6 +9,8 @@ export default function Home() {
       description:
         "Landing informativa con formulario de contacto y mapa integrado",
       tags: ["React", "Formspree", "Google Maps"],
+      gradient: "from-emerald-900 to-teal-800",
+      icon: "🐾",
     },
     {
       slug: "gym",
@@ -16,6 +18,8 @@ export default function Home() {
       description:
         "UI energética con calculadora de membresías y animaciones dinámicas",
       tags: ["React", "Tailwind", "Calculadora"],
+      gradient: "from-orange-900 to-amber-800",
+      image: "/image/icon-coach.png",
     },
     {
       slug: "doctor",
@@ -23,6 +27,8 @@ export default function Home() {
       description:
         "Diseño sobrio con sistema de turnos y formulario de reserva",
       tags: ["React", "Formularios", "UX"],
+      gradient: "from-blue-900 to-blue-800",
+      icon: "🩺",
     },
     {
       slug: "lawyer",
@@ -30,12 +36,18 @@ export default function Home() {
       description:
         "Tipografía serif, máxima profesionalidad y diseño minimalista",
       tags: ["React", "Minimalista", "Serif"],
+      gradient: "from-gray-900 to-zinc-800",
+      icon: "💼",
+      
     },
     {
       slug: "gamedev",
       title: "Game Developer",
       description: "Portfolio inmersivo para desarrolladores de videojuegos",
       tags: ["React", "Gaming", "Portfolio"],
+      gradient: "from-purple-900 to-fuchsia-800",
+      icon: "🎮",
+
     },
     {
       slug: "baet",
@@ -43,24 +55,34 @@ export default function Home() {
       description:
         "Landing para productores musicales con reproductor de audio",
       tags: ["React", "Audio", "Música"],
+      gradient: "from-rose-900 to-red-800",
+      image:"/image/icon-beat.png"
     },
     {
       slug: "singer",
       title: "Cantante Profesional",
       description: "Diseño artístico con galería de shows y próximos eventos",
       tags: ["React", "Eventos", "Galería"],
+      gradient: "from-indigo-900 to-purple-800",
+      icon: "🎤",
+
     },
     {
       slug: "guitar",
       title: "Guitarrista",
       description: "Portfolio para músicos con sección de clases y videos",
       tags: ["React", "Educación", "Video"],
+      gradient: "from-cyan-900 to-blue-800",
+      icon: "🎸",
+
     },
     {
       slug: "urban-ritual",
       title: "Urban Ritual",
       description: "Documento interactivo con experiencia visual inmersiva",
       tags: ["React", "Documento", "Interactivo"],
+      icon: "🕹",
+
     },
   ];
   // 1. Definimos los enlaces para la galería principal
@@ -124,11 +146,25 @@ export default function Home() {
                 className="block group"
               >
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
-                  <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500" />
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold group-hover:text-blue-600">
-                      {template.title}
-                    </h3>
+                  <div
+                    className={`h-48 bg-gradient-to-br ${template.gradient ? template.gradient : " from-blue-400 to-purple-500 "} `}
+                  />
+
+                  <div className="p-4">
+                    <div className="flex gap-2 justify-between">
+                      <h3 className="text-xl mt-4 font-bold group-hover:text-blue-600">
+                        {template.title}
+                      </h3>
+                      {template.image ? (
+                        <img
+                          src={template.image}
+                          alt={template.title}
+                          className="w-14"
+                        />
+                      ) : (
+                        <p className="text-2xl mt-3">{template.icon}</p>
+                      )}
+                    </div>
                     <p className="text-gray-600 mt-2">{template.description}</p>
                     <div className="flex gap-2 mt-4">
                       {template.tags.map((tag) => (
@@ -255,35 +291,34 @@ export default function Home() {
           </section>
         </div>
       </div>
-        <Footer
-         
-          brandName="Subzero Dev"
-          brandDescription="Transformo ideas en experiencias web rápidas, seguras y optimizadas para vender."
-          authorName="Subzero"
-          authorLink="https://tu-dominio.com"
-          quickLinks={[
-            { label: "Inicio", url: "/" },
-            { label: "Servicios Web", url: "/#servicios" },
-            { label: "Mi Portafolio", url: "/#portafolio" },
-          ]}
-          socialLinks={[
-            {
-              name: "LinkedIn",
-              url: "https://linkedin.com/in/tu-perfil",
-              icon: "linkedin",
-            },
-            {
-              name: "GitHub",
-              url: "https://github.com/tu-usuario",
-              icon: "github",
-            },
-            {
-              name: "WhatsApp",
-              url: "https://wa.me/5491112345678?text=Hola%20Subzero,%20vi%20tu%20landing%20y%20quiero%20consultar%20por%20un%20proyecto",
-              icon: "whatsapp",
-            },
-          ]}
-        />
+      <Footer
+        brandName="Subzero Dev"
+        brandDescription="Transformo ideas en experiencias web rápidas, seguras y optimizadas para vender."
+        authorName="Subzero"
+        authorLink="https://tu-dominio.com"
+        quickLinks={[
+          { label: "Inicio", url: "/" },
+          { label: "Servicios Web", url: "/#servicios" },
+          { label: "Mi Portafolio", url: "/#portafolio" },
+        ]}
+        socialLinks={[
+          {
+            name: "LinkedIn",
+            url: "https://linkedin.com/in/tu-perfil",
+            icon: "linkedin",
+          },
+          {
+            name: "GitHub",
+            url: "https://github.com/tu-usuario",
+            icon: "github",
+          },
+          {
+            name: "WhatsApp",
+            url: "https://wa.me/5491112345678?text=Hola%20Subzero,%20vi%20tu%20landing%20y%20quiero%20consultar%20por%20un%20proyecto",
+            icon: "whatsapp",
+          },
+        ]}
+      />
     </>
   );
 }
