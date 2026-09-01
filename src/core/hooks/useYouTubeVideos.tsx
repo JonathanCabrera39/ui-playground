@@ -3,6 +3,16 @@ import { useState, useEffect } from 'react';
 // ID de tu playlist manual de YouTube (La que controlas tú)
 const PLAYLIST_ID = 'PLS-v4wS4Dtsc';
 
+type YouTubePlaylistItem = {
+  id: string; // ID del item en la playlist
+  snippet?: {
+    title?: string;
+    resourceId?: {
+      videoId?: string; // ✅ Aquí está el ID real del video
+    };
+  };
+};
+
 export const useYouTubeVideos = (maxResults = 4) => {
   const [videos, setVideos] = useState<Array<{ id: string; title: string }>>([]);
   const [loading, setLoading] = useState(true);
@@ -32,7 +42,7 @@ export const useYouTubeVideos = (maxResults = 4) => {
         const data = await res.json();
         const items = data.items || [];
         
-        setVideos(items.map((item: any) => ({
+        setVideos(items.map((item: YouTubePlaylistItem) => ({
           id: item.snippet?.resourceId?.videoId ?? '',
           title: item.snippet?.title ?? 'Sin título'
         })));
