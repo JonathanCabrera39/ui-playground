@@ -2,7 +2,7 @@
 import { useState } from "react";
 import LoadingScreenGym from "./LoadingScreenGym";
 import AnimatedSection from "../..//core/components/sections/AnimatedSection";
-import icon from "../../image/icon-coach.png";
+import icon from "/image/icon-coach.png";
 import Contacto from "../../core/components/Contacto";
 import Testimonios from "../../core/components/Testimonios";
 import Videos from "../../core/components/Videos";
