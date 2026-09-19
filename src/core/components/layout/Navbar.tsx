@@ -158,7 +158,7 @@ export default function Navbar({
               <a
                 key={index}
                 href={link.url}
-                className="text-base font-medium text-gray-200 hover:text-blue-500 px-3 py-1.5 rounded-lg transition"
+                className="text-base font-medium text-gray-600 hover:text-blue-500 px-3 py-1.5 rounded-lg transition"
               >
                 {link.name}
               </a>

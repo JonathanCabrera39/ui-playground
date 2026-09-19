@@ -1,5 +1,6 @@
 import Footer from "../core/components/layout/Footer";
 import Navbar from "../core/components/layout/Navbar";
+import WhatsAppButton from "../core/components/ui/WhatsAppButton";
 import logo from "/image/subjona.png";
 export default function Home() {
   const templates = [
@@ -38,7 +39,6 @@ export default function Home() {
       tags: ["React", "Minimalista", "Serif"],
       gradient: "from-gray-900 to-zinc-800",
       icon: "💼",
-      
     },
     {
       slug: "gamedev",
@@ -47,7 +47,6 @@ export default function Home() {
       tags: ["React", "Gaming", "Portfolio"],
       gradient: "from-purple-900 to-fuchsia-800",
       icon: "🎮",
-
     },
     {
       slug: "baet",
@@ -56,7 +55,7 @@ export default function Home() {
         "Landing para productores musicales con reproductor de audio",
       tags: ["React", "Audio", "Música"],
       gradient: "from-rose-900 to-red-800",
-      image:"/image/icon-beat.png"
+      image: "/image/icon-beat.png",
     },
     {
       slug: "singer",
@@ -65,7 +64,6 @@ export default function Home() {
       tags: ["React", "Eventos", "Galería"],
       gradient: "from-indigo-900 to-purple-800",
       icon: "🎤",
-
     },
     {
       slug: "guitar",
@@ -74,7 +72,6 @@ export default function Home() {
       tags: ["React", "Educación", "Video"],
       gradient: "from-cyan-900 to-blue-800",
       icon: "🎸",
-
     },
     {
       slug: "urban-ritual",
@@ -82,7 +79,6 @@ export default function Home() {
       description: "Documento interactivo con experiencia visual inmersiva",
       tags: ["React", "Documento", "Interactivo"],
       icon: "🕹",
-
     },
   ];
   // 1. Definimos los enlaces para la galería principal
@@ -93,8 +89,9 @@ export default function Home() {
   ];
   return (
     <>
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="relative w-full bg-gray-50 py-12">
         {/* ✅ 2. Llamamos al Navbar con sus variantes personalizadas */}
+
         <Navbar
           logo={logo}
           logoAlt="Subjona Logo"
@@ -290,32 +287,40 @@ export default function Home() {
             </div>
           </section>
         </div>
+        <WhatsAppButton phoneNumber="542665276622" stopAtId="footer" />
       </div>
+
       <Footer
-        brandName="Subzero Dev"
+        id="footer"
+        brandName="Subjona Dev"
         brandDescription="Transformo ideas en experiencias web rápidas, seguras y optimizadas para vender."
-        authorName="Subzero"
-        authorLink="https://tu-dominio.com"
+        authorName="Subjona"
+        authorLink="https://subjona.com"
         quickLinks={[
           { label: "Inicio", url: "/" },
-          { label: "Servicios Web", url: "/#servicios" },
-          { label: "Mi Portafolio", url: "/#portafolio" },
+          { label: "Servicios Web", url: "http://localhost:5173/#servicios" },
+          { label: "Mi Portafolio", url: "http://localhost:5173/#proximamente" },
         ]}
         socialLinks={[
           {
             name: "LinkedIn",
-            url: "https://linkedin.com/in/tu-perfil",
+            url: "https://www.linkedin.com/in/jonathancabrera-subjona/",
             icon: "linkedin",
           },
           {
             name: "GitHub",
-            url: "https://github.com/tu-usuario",
+            url: "https://github.com/JonathanCabrera39",
             icon: "github",
           },
           {
-            name: "WhatsApp",
-            url: "https://wa.me/5491112345678?text=Hola%20Subzero,%20vi%20tu%20landing%20y%20quiero%20consultar%20por%20un%20proyecto",
-            icon: "whatsapp",
+            name: "instagram",
+            url: "https://www.instagram.com/subjona.dev/",
+            icon: "instagram",
+          },
+          {
+            name: "youtube",
+            url: "https://www.youtube.com/@subjona0836",
+            icon: "youtube",
           },
         ]}
       />

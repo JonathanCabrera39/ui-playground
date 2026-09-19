@@ -1,23 +1,48 @@
 // src/components/ui/WhatsAppButton.tsx
-import React from 'react';
+import React, { useEffect, useState } from "react";
 
 interface WhatsAppButtonProps {
-  phoneNumber: string; // Obligatorio: número de teléfono en formato internacional (ej: 542665276622)
+  phoneNumber?: string; // Obligatorio: número de teléfono en formato internacional (ej: 542665276622)
   defaultMessage?: string; // Opcional: mensaje predefinido
-  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'; // Opcional: posición
-  size?: 'sm' | 'md' | 'lg'; // Opcional: tamaño
+  position?: "bottom-right" | "bottom-left" | "top-right" | "top-left"; // Opcional: posición
+  size?: "sm" | "md" | "lg"; // Opcional: tamaño
   className?: string; // Opcional: clase adicional
   ariaLabel?: string; // Opcional: etiqueta para accesibilidad
+  stopAtId?: string; // NUEVO: ID del elemento donde debe frenar (ej: "mi-footer")
 }
 
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   phoneNumber,
   defaultMessage = "¡Hola! Vi tu landing y quiero una cotización para mi proyecto.\n\nPor favor, para darme un presupuesto exacto:\n1. ¿Qué necesitas? (ej: landing para veterinario, beatmaker, gimnasio...)\n2. ¿Tienes deadline o fecha límite?\n3. ¿Tienes logos, textos o imágenes listas?",
-  position = 'bottom-right',
-  size = 'md',
-  className = '',
-  ariaLabel = 'Chatear por WhatsApp',
+  position = "bottom-right",
+  size = "md",
+  className = "",
+  ariaLabel = "Chatear por WhatsApp",
+  stopAtId,
 }) => {
+  // Estado para saber si chocamos con la etiqueta final
+  const [isAtBottom, setIsAtBottom] = useState(false);
+
+  useEffect(() => {
+    // Si no pasas un ID, no hace nada y actúa como un botón flotante normal
+    if (!stopAtId) return;
+
+    const targetElement = document.getElementById(stopAtId);
+    if (!targetElement) return;
+
+    // El espía: detecta si el elemento designado asoma en la pantalla
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsAtBottom(entry.isIntersecting);
+      },
+      { threshold: 0 }, // Se dispara apenas un píxel del elemento es visible
+    );
+
+    observer.observe(targetElement);
+
+    // Limpiá esto cuando el componente desaparezca[cite: 3]
+    return () => observer.disconnect();
+  }, [stopAtId]); // Se ejecuta al montar o si el ID cambia[cite: 3]
 
   // Función para construir el enlace de WhatsApp
   const getWhatsAppLink = () => {
@@ -27,16 +52,16 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
 
   // Definir clases para posición y tamaño
   const positionClasses = {
-    'bottom-right': 'bottom-6 right-6',
-    'bottom-left': 'bottom-6 left-6',
-    'top-right': 'top-6 right-6',
-    'top-left': 'top-6 left-6',
+    "bottom-right": "bottom-6 right-6",
+    "bottom-left": "bottom-6 left-6",
+    "top-right": "top-6 right-6",
+    "top-left": "top-6 left-6",
   };
 
   const sizeClasses = {
-    sm: 'p-3 w-10 h-10',
-    md: 'p-4 w-14 h-14', // Ajustado para que coincida con el tamaño del SVG
-    lg: 'p-5 w-16 h-16',
+    sm: "p-3 w-10 h-10",
+    md: "p-4 w-14 h-14", // Ajustado para que coincida con el tamaño del SVG
+    lg: "p-5 w-16 h-16",
   };
 
   return (
@@ -45,8 +70,9 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
       target="_blank"
       rel="noopener noreferrer"
       className={`
-        fixed z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg
+        z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg
         transition-transform hover:scale-110
+        ${isAtBottom ? "absolute bottom-6" : "fixed bottom-6"}
         ${positionClasses[position]}
         ${sizeClasses[size]}
         ${className}
