@@ -298,8 +298,8 @@ export default function Home() {
         authorLink="https://subjona.com"
         quickLinks={[
           { label: "Inicio", url: "/" },
-          { label: "Servicios Web", url: "subjona.com/#servicios" },
-          { label: "Mi Portafolio", url: "subjona.com/#portafolio" },
+          { label: "Servicios Web", url: "https://subjona.com/#servicios" },
+          { label: "Mi Portafolio", url: "https://subjona.com/#proximamente" },
         ]}
         socialLinks={[
           {
