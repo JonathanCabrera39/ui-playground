@@ -298,12 +298,12 @@ export default function Home() {
         authorLink="https://subjona.com"
         quickLinks={[
           { label: "Inicio", url: "/" },
-          { label: "Servicios Web", url: "http://localhost:5173/#servicios" },
-          { label: "Mi Portafolio", url: "http://localhost:5173/#proximamente" },
+          { label: "Servicios Web", url: "https://subjona.com/#servicios" },
+          { label: "Mi Portafolio", url: "https://subjona.com/#proximamente" },
         ]}
         socialLinks={[
           {
-            name: "LinkedIn",
+            name: "Linkedin",
             url: "https://www.linkedin.com/in/jonathancabrera-subjona/",
             icon: "linkedin",
           },
